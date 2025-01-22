@@ -1,0 +1,15 @@
+Create a program that connects donors and charitable organisations
+Keeps track of donations needed by various organisation and their needs
+//Donor
+name
+email
+donation history
+messages
+location
+
+//Organisation
+name
+description
+needs
+email
+location
