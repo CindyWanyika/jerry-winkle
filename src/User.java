@@ -13,7 +13,7 @@ public class User {
     private String password;
     private String accountType;
     private String emailAddress;
-    private Inbox messages;
+    private ArrayList<Message> myMessages=new ArrayList<Message>();
     //a static hashmap to store user passwords for login
     private static HashMap<String,String> userPasswords=new HashMap<>();
     private static ArrayList<User> allUsers;
@@ -43,10 +43,6 @@ public class User {
 
     public void setEmailAddress(String emailAddress) {this.emailAddress = emailAddress;}
 
-    public Inbox getMessages() {return messages;}
-
-    public void setMessages(Inbox messages) {this.messages = messages;}
-
     //login
     public boolean login(String name,String password){
         if (userPasswords.containsKey(name)&& userPasswords.get(name).equals(password))return true;
@@ -60,4 +56,11 @@ public class User {
 
     }
 
+    public ArrayList<Message> getMyMessages() {
+        return myMessages;
+    }
+
+    public void setMyMessages(ArrayList<Message> myMessages) {
+        this.myMessages = myMessages;
+    }
 }
