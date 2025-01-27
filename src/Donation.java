@@ -1,24 +1,20 @@
+import java.time.LocalDate;
+
 public class Donation {
-    private String category;
+
     private Need need;
     private Donor donor;
     private Organisation recipient;
+    private final LocalDate date;
 
-    public Donation(String category,Need need,Donor donor,Organisation recipient){
-        this.category=category;
+    public Donation(Need need,Donor donor,Organisation recipient){
+
         this.need=need;
         this.donor=donor;
         this.recipient=recipient;
+        this.date = LocalDate.now();
     }
 
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 
     public Need getNeed() {
         return need;
@@ -42,5 +38,9 @@ public class Donation {
 
     public void setRecipient(Organisation recipient) {
         this.recipient = recipient;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 }
