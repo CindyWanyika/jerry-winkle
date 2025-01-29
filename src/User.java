@@ -12,16 +12,18 @@ public class User {
     private String name;
     private String password;
     private String accountType;
+    private String country;
     private String emailAddress;
     private ArrayList<Message> myMessages=new ArrayList<Message>();
     //a static hashmap to store user passwords for login
     private static HashMap<String,String> userPasswords=new HashMap<>();
     private static ArrayList<User> allUsers;
     //constructor
-    public User(String name,String password,String type,String email){
+    public User(String name,String password,String type,String country,String email){
         this.password=password;
         this.name=name;
         this.accountType=type;
+        this.country=country;
         this.emailAddress=email;
         userPasswords.put(name,password);
     }
@@ -60,7 +62,14 @@ public class User {
         return myMessages;
     }
 
-    public void setMyMessages(ArrayList<Message> myMessages) {
-        this.myMessages = myMessages;
+    public void addMessages(Message myMessage) {
+        this.myMessages.add(myMessage);
+    }
+
+    //Send message
+    public void sendMessage(User receiver,String text){
+        Message created=new Message(this,receiver,text);
+        this.addMessages(created);
+        receiver.addMessages(created);
     }
 }
