@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public class Donor extends User{
     private static ArrayList<Donation> donationHistory;
-    public Donor(String name, String password, String type,String country, String email) {
-        super(name, password, type,country, email);
+    public Donor(int id,String name,String lname, String password, String type,String country, String email) {
+        super(id,name,lname, password, type,country, email);
         donationHistory=new ArrayList<>();
     }
 

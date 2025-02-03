@@ -5,8 +5,8 @@ public class Organisation extends User {
     private String licenceNo;
     private ArrayList<Need> needs;
 
-    public Organisation(String name, String password, String type, String country, String email,String description,String licenceNo) {
-        super(name, password, type, country, email);
+    public Organisation(int id,String name,String lname, String password, String type, String country, String email,String description,String licenceNo) {
+        super(id,name,lname, password, type, country, email);
         needs=new ArrayList<Need>();
         this.description=description;
         this.licenceNo=licenceNo;

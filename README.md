@@ -1,1 +1,17 @@
-The donation platform addresses a real-world problem by providing a digital solution that connects donors and organizations efficiently. Its simplicity and accessibility ensure that helping others becomes a more feasible and attractive option for people, encouraging a culture of generosity that benefits society as a whole. This solution is not just about donating; it is about creating a community-driven movement of social responsibility, powered by technology.
+CharityKonekt 💙✨
+A platform connecting generous hearts with those in need.
+
+Overview
+CharityKonekt is a simple yet impactful application that helps donors find charitable organizations in their local area. By bridging the gap between generosity and need, the platform makes it easy for individuals to contribute to meaningful causes. Whether it's food, clothing, or financial aid, CharityKonekt ensures that donations reach the right places efficiently.
+
+Features
+✅ Find Charities – Locate organizations near you that need donations.
+✅ Easy Donations – Connect with charities and contribute effortlessly.
+✅ Search & Filter – Browse charities by category, location, and type of support needed.
+✅ User-Friendly Interface – Simple and intuitive design for seamless navigation.
+✅ Messaging feature - Engage in preliminary conversation with the organization you wish to donate to
+
+Tech Stack
+Backend: Java (Object-Oriented Programming, File Handling)
+Frontend: JavaFX (Interactive GUI)
+Version Control: Git & GitHub
