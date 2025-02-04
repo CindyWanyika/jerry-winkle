@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 public class User {
     //attributes
-    private static int idCount=000000;
+    protected static int idCount=000000;
     private int id;
     private String fname;
     private String lname;
@@ -17,9 +17,7 @@ public class User {
     private String accountType;
     private String country;
     private String emailAddress;
-    private ArrayList<Message> myMessages=new ArrayList<Message>();
-    //a static hashmap to store user passwords for login
-    private static HashMap<String,String> userPasswords=new HashMap<>();
+
 
     //constructor
     public User(int id,String name,String lname,String pword,String type,String country,String email){
@@ -30,7 +28,6 @@ public class User {
         this.accountType=type;
         this.country=country;
         this.emailAddress=email;
-        userPasswords.put(name,pword);
 
         //add the user to the database
         String url = "jdbc:mysql://localhost:3306/myProjectDb1";
@@ -58,6 +55,32 @@ public class User {
             e.printStackTrace();
         }
     }
+
+    public static User login(String name,String email,String password){
+        User current=null;
+        //querry the database
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con=DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myProjectDb1","root","wanyika_1234?");
+//here sonoo is database name, root is username and password
+            String querry="select * from Users where Firstname=? and email=? and password=?";
+            PreparedStatement stmt=con.prepareStatement(querry);
+
+            stmt.setString(1, name);
+            stmt.setString(2, email);
+            stmt.setString(3, password);
+
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next()) {
+                current=new User(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),
+                        rs.getString(5),rs.getString(6),rs.getString(7));
+            }
+            con.close();
+        }catch(Exception e){ System.out.println("User not found");}
+        return current;}
+
+    //create account
     //Methods
     //getters and setters
     public String getFname() {return fname;}
@@ -77,31 +100,9 @@ public class User {
     public void setEmailAddress(String emailAddress) {this.emailAddress = emailAddress;}
 
     //login
-    public static User login(String name,String email,String password){
-        User current=null;
-        //querry the database
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con=DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/myProjectDb1","root","wanyika_1234?");
-//here sonoo is database name, root is username and password
-            String querry="select * from Users where Firstname=? and email=? and password=?";
-            PreparedStatement stmt=con.prepareStatement(querry);
-
-            stmt.setString(1, name);
-            stmt.setString(2, email);
-            stmt.setString(3, password);
-
-            ResultSet rs=stmt.executeQuery();
-            while(rs.next()) {
-                current=new User(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),
-                            rs.getString(5),rs.getString(6),rs.getString(7));
-            }
-            con.close();
-        }catch(Exception e){ System.out.println("User not found");}
-        return current;}
 
     //create account
+
     public static void createAccount(String name,String lname,String pword,String type,String country,String emailAddress){
         //write to the database
         int id=idCount;
@@ -134,20 +135,6 @@ public class User {
 
     }
 
-    public ArrayList<Message> getMyMessages() {
-        return myMessages;
-    }
-
-    public void addMessages(Message myMessage) {
-        this.myMessages.add(myMessage);
-    }
-
-    //Send message
-    public void sendMessage(User receiver,String text){
-        Message created=new Message(this,receiver,text);
-        this.addMessages(created);
-        receiver.addMessages(created);
-    }
 
     public int getId() {
         return id;

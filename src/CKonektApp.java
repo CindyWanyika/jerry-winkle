@@ -16,10 +16,10 @@ public class CKonektApp extends Application{
     public void start(Stage stage) throws Exception {
         // Root pane
         StackPane root = new StackPane();
-        root.setStyle("-fx-background-color: white;");  // Dark background
+        root.setStyle("-fx-background-color: Blue;");  // Dark background
 
         // Welcome message
-        Text welcomeText = new Text("HELLO! \n Welcome to CharityKonnekt");
+        Text welcomeText = new Text("Welcome to CharityKonnekt");
         welcomeText.setFont(Font.font("Aria", 30));
         welcomeText.setFill(Color.BLACK);
 

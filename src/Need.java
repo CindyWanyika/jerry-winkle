@@ -1,20 +1,11 @@
 public class Need {
-    private String name;
+
     private String category;
     private String description;
 
-    public Need(String name,String category,String description){
-        this.name=name;
+    public Need(String category,String description){
         this.category=category;
         this.description=description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getCategory() {

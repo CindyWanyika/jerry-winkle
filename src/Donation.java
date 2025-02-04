@@ -3,9 +3,19 @@ import java.time.LocalDate;
 public class Donation {
 
     private Need need;
+    private String needName;
     private Donor donor;
+    private String donorName;
     private Organisation recipient;
+    private String orgName;
     private final LocalDate date;
+
+    public Donation(String need,String dname,String orgname){
+        this.needName=need;
+        this.donorName=dname;
+        this.orgName=orgname;
+        this.date=LocalDate.now();
+    }
 
     public Donation(Need need,Donor donor,Organisation recipient){
 
@@ -42,5 +52,29 @@ public class Donation {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public String getDonorName() {
+        return donorName;
+    }
+
+    public void setDonorName(String donorName) {
+        this.donorName = donorName;
+    }
+
+    public String getNeedName() {
+        return needName;
+    }
+
+    public void setNeedName(String needName) {
+        this.needName = needName;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
     }
 }
