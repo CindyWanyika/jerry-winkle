@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -27,6 +28,9 @@ public class Controller {
     private TextField emailField;
 
     @FXML
+    private Label feedbackLabel;
+
+    @FXML
     private PasswordField passwordField;
 
     @FXML
@@ -39,7 +43,7 @@ public class Controller {
 
         // Check if fields are empty
         if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            showAlert("Login Failed", "All fields must be filled out.");
+            feedbackLabel.setText("All fields must be filled out");
             return;
         }
 
@@ -47,7 +51,7 @@ public class Controller {
         User user = User.login(name, email, password);
 
         if (user == null) {
-            showAlert("Login Failed", "Invalid credentials. Please try again.");
+            feedbackLabel.setText("Invalid credentials. Please try again.");
         } else {
             String role = user.getAccountType().toLowerCase();
 
@@ -57,7 +61,7 @@ public class Controller {
             } else if (role.equals("organization")) {
                 fxmlFile = "orgHome.fxml";  // Change to your actual organization homepage file
             } else {
-                showAlert("Login Error", "Unrecognized user role.");
+                feedbackLabel.setText("Unrecognized user role.");
                 return;
             }
 
@@ -73,12 +77,5 @@ public class Controller {
         stage.show();
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }
 

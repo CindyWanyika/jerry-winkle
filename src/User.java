@@ -55,6 +55,26 @@ public class User {
             e.printStackTrace();
         }
     }
+    public static boolean userExists(String email){
+        boolean exists=false;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con=DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myProjectDb1","root","wanyika_1234?");
+
+            String querry="select * from Users where email=?";
+            PreparedStatement stmt=con.prepareStatement(querry);
+
+            stmt.setString(1, email);
+
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next()) {
+                exists=true;
+            }
+            con.close();
+        }catch(Exception e){ System.out.println("User not found");}
+        return exists;
+    }
 
     public static User login(String name,String email,String password){
         User current=null;
@@ -80,7 +100,7 @@ public class User {
         }catch(Exception e){ System.out.println("User not found");}
         return current;}
 
-    //create account
+
     //Methods
     //getters and setters
     public String getFname() {return fname;}
@@ -127,7 +147,7 @@ public class User {
 
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("User inserted successfully!");
+                System.out.println("Account created successfully!");
             }
         } catch (SQLException e) {
             e.printStackTrace();
