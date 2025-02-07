@@ -28,32 +28,7 @@ public class User {
         this.accountType=type;
         this.country=country;
         this.emailAddress=email;
-
-        //add the user to the database
-        String url = "jdbc:mysql://localhost:3306/myProjectDb1";
-        String user = "root";
-        String password = "wanyika_1234?";
-
-        String query = "INSERT INTO Users VALUES (?, ?, ?,?,?,?,?)";
-
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            stmt.setInt(1, id);
-            stmt.setString(2, name);
-            stmt.setString(3, lname);
-            stmt.setString(4, pword);
-            stmt.setString(5, type);
-            stmt.setString(6, country);
-            stmt.setString(7, email);
-
-            int rowsInserted = stmt.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("User inserted successfully!");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        
     }
     public static boolean userExists(String email){
         boolean exists=false;
