@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DonorHomepageController">
    <children>
       <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHARITY">
          <font>
@@ -18,13 +22,52 @@
             <Font name="Brush Script MT Italic" size="21.0" />
          </font>
       </Text>
-      <Text fill="#217ace" layoutX="150.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" HELLO WELCOME TO CHARITY KONEKT">
+      <Button fx:id="findOrgButton" layoutX="137.0" layoutY="185.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="145.0" style="-fx-background-color: white;" text="ORGANISATIONS">
          <font>
-            <Font name="Berlin Sans FB" size="17.0" />
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <effect>
+            <InnerShadow height="255.0" radius="127.0" width="255.0">
+               <color>
+                  <Color red="0.05249999836087227" green="0.10423493385314941" blue="0.75" />
+               </color>
+            </InnerShadow>
+         </effect></Button>
+      <Button fx:id="viewDonations" layoutX="330.0" layoutY="185.0" lineSpacing="5.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="145.0" style="-fx-background-color: white;" text="MY DONATIONS" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <opaqueInsets>
+            <Insets bottom="6.0" left="8.0" right="10.0" top="3.0" />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+         <effect>
+            <InnerShadow choke="0.26" radius="68.5" width="255.0">
+               <color>
+                  <Color red="0.10710418224334717" green="0.38759294152259827" blue="0.7543859481811523" />
+               </color>
+            </InnerShadow>
+         </effect></Button>
+      <Button fx:id="logoutButton" layoutX="497.0" layoutY="328.0" mnemonicParsing="false" onAction="#handleBackButton" text="LOG OUT" />
+      <Text fill="#061867" layoutX="257.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello,">
+         <font>
+            <Font name="Bodoni MT" size="47.0" />
          </font>
       </Text>
-      <Button layoutX="54.0" layoutY="149.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="145.0" text="FIND ORGANISATION" />
-      <Button layoutX="225.0" layoutY="147.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="145.0" text="VIEW MY DONATIONS" />
-      <Button layoutX="497.0" layoutY="328.0" mnemonicParsing="false" style="-fx-background-color: lightcoral;" text="LOG OUT" />
+      <Text fill="#fff7f7" layoutX="147.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME TO CHARITY KONEKT">
+         <font>
+            <Font name="Bodoni MT" size="22.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Text>
+      <Text layoutX="257.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connecting you to Hope....">
+         <font>
+            <Font name="Berlin Sans FB" size="8.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
