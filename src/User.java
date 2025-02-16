@@ -30,6 +30,13 @@ public class User {
         this.emailAddress=email;
         
     }
+    public User(int id,String name,String country,String email){
+        this.id=id;
+        this.fname =name;
+        this.country=country;
+        this.emailAddress=email;
+
+    }
     public static boolean userExists(String email){
         boolean exists=false;
         try{

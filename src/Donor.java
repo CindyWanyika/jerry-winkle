@@ -59,7 +59,7 @@ public class Donor extends User{
         return "Thanks for donating";
     }
     public static void main(String[]args){
-        Organisation org=new Organisation(123456,"char1"," ","pass","Organisation","Ghana","char1@email","char org","423514");
+        Organisation org=new Organisation(123456,"char1","pass","Organisation","Ghana","char1@email","char org","423514");
         Need need=new Need("Foodstuff","I need tea");
         Donor donor=new Donor(99999,"Cindy","w","pass2","Donor","Kenya","c@email");
         System.out.println(donor.donate(org,need));

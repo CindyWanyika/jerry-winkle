@@ -33,7 +33,7 @@ public class SignUpController implements Initializable {
     private Button backButton;
 
     @FXML
-    private TextField licenceNo; // Licence No field (initially hidden)
+    private TextField licenceNo;
     @FXML
     private TextArea description; // Description field (initially hidden)
     @FXML
@@ -54,6 +54,7 @@ public class SignUpController implements Initializable {
         if (accountType.getValue().equals("Organisation")) {
             licenceNo.setVisible(true);
             description.setVisible(true);
+            lname.setVisible(false);
         } else {
             licenceNo.setVisible(false);
             description.setVisible(false);
@@ -73,7 +74,7 @@ public class SignUpController implements Initializable {
         String licence = licenceNo.isVisible() ? licenceNo.getText().trim() : ""; // Only get the licence number if it's visible
         String descriptionText = description.isVisible() ? description.getText().trim() : "";
 
-        if (name.isEmpty() || lnameText.isEmpty() || passwordText.isEmpty() || confirmPassword.isEmpty() || type == null || countryText.isEmpty()) {
+        if (name.isEmpty() || passwordText.isEmpty() || confirmPassword.isEmpty() || type == null || countryText.isEmpty()) {
             feedbackLabel.setText("Please fill in all required fields correctly.");
             return;
         }
@@ -91,7 +92,7 @@ public class SignUpController implements Initializable {
 
         if (type.equals("Organisation")) {
 
-            Organisation.createOrg(id,name, lnameText, passwordText, type, countryText, emailAddress, licence, descriptionText);
+            Organisation.createOrg(id,name, passwordText, type, countryText, emailAddress, licence, descriptionText);
         }
 
     }

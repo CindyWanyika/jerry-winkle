@@ -19,7 +19,7 @@ public class Sample extends Application {
     public void start(Stage stage) throws Exception {
         Parent root=FXMLLoader.load(getClass().getResource("sample.fxml"));
         stage.setTitle("Charity konekt");
-        stage.setScene(new Scene(root,700,400));
+        stage.setScene(new Scene(root,700,600));
         stage.show();
 
 

@@ -6,19 +6,25 @@ public class Organisation extends User {
     private String licenceNo;
 
 
-    public Organisation(int id,String name,String lname, String password, String type, String country, String email,String description,String licenceNo) {
-        super(id,name,lname, password, type, country, email);
+    public Organisation(int id,String name, String password, String type, String country, String email,String description,String licenceNo) {
+        super(id,name,"Null", password, type, country, email);
         this.description=description;
         this.licenceNo=licenceNo;
     }
+    public Organisation(String name,String country,String email,String licence,String descr,int id){
+        super(id,name,country,email);
+        this.licenceNo=licence;
+        this.description=descr;
 
-    public static void createOrg(int id,String name, String lnameText, String passwordText, String type, String countryText, String emailAddress, String licence, String descriptionText) {
-        Organisation current=new Organisation(id,name,lnameText,passwordText,type,countryText,emailAddress,descriptionText,licence);
+    }
+
+    public static void createOrg(int id,String name, String passwordText, String type, String countryText, String emailAddress, String licence, String descriptionText) {
+        Organisation current=new Organisation(id,name,passwordText,type,countryText,emailAddress,descriptionText,licence);
         String url = "jdbc:mysql://localhost:3306/myProjectDb1";
         String user = "root";
         String password = "wanyika_1234?";
 
-        String query = "INSERT INTO Organisations VALUES (?, ?, ?,?,?)";
+        String query = "INSERT INTO Organisations VALUES (?, ?, ?,?,?,?)";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -29,6 +35,7 @@ public class Organisation extends User {
             stmt.setString(5, descriptionText);
             stmt.setString(2, countryText);
             stmt.setString(3, emailAddress);
+            stmt.setInt(6,id);
 
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
@@ -127,6 +134,35 @@ public class Organisation extends User {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static ArrayList<Organisation> viewAllOrgs(){
+        ArrayList<Organisation> organisations=new ArrayList<>();
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con= DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myProjectDb1","root","wanyika_1234?");
+
+            String querry="select * from Organisations";
+            PreparedStatement stmt=con.prepareStatement(querry);
+
+
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next()) {
+                Organisation org=new Organisation(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6));
+                organisations.add(org);
+            }
+            con.close();
+        }catch(Exception e){ System.out.println("Error getting needs");}
+
+        return organisations;
+
+    }
+    @Override
+    public String toString(){
+        return "Organisation Name: "+this.getFname()+
+                "\nCountry: "+this.getCountry()+
+                "\nLicence no: "+this.licenceNo+
+                "\nAbout: "+this.description;
     }
 
 }
