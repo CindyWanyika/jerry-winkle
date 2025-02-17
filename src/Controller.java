@@ -58,8 +58,8 @@ public class Controller {
             String fxmlFile;
             if (role.equals("donor")) {
                 fxmlFile = "donorHomepage.fxml";
-            } else if (role.equals("organization")) {
-                fxmlFile = "orgHome.fxml";  // Change to your actual organization homepage file
+            } else if (role.equalsIgnoreCase("Organisation")) {
+                fxmlFile = "orgHome.fxml";
             } else {
                 feedbackLabel.setText("Unrecognized user role.");
                 return;

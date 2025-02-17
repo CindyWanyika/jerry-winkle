@@ -22,7 +22,6 @@ public class Sample extends Application {
         stage.setScene(new Scene(root,700,600));
         stage.show();
 
-
     }
 
 
