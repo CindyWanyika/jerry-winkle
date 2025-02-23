@@ -4,18 +4,10 @@ public class Donation {
 
     private Need need;
     private String needName;
+    private String category;
     private Donor donor;
-    private String donorName;
     private Organisation recipient;
-    private String orgName;
     private final LocalDate date;
-
-    public Donation(String need,String dname,String orgname){
-        this.needName=need;
-        this.donorName=dname;
-        this.orgName=orgname;
-        this.date=LocalDate.now();
-    }
 
     public Donation(Need need,Donor donor,Organisation recipient){
 
@@ -24,6 +16,15 @@ public class Donation {
         this.recipient=recipient;
         this.date = LocalDate.now();
     }
+    public Donation(Donor donor,Organisation recipient,String needName,String categ){
+
+        this.needName=needName;
+        this.category=categ;
+        this.donor=donor;
+        this.recipient=recipient;
+        this.date = LocalDate.now();
+    }
+
 
 
     public Need getNeed() {
@@ -54,27 +55,15 @@ public class Donation {
         return date;
     }
 
-    public String getDonorName() {
-        return donorName;
+    @Override
+    public String toString(){
+        return "Organisation name"+this.recipient.getFname()+
+                "\nDonorName: "+this.donor.getFname()+
+                "\nCategory: "+this.category+
+                "\nDescription: "+this.needName+
+                "\nDate: "+this.date.toString();
+
     }
 
-    public void setDonorName(String donorName) {
-        this.donorName = donorName;
-    }
 
-    public String getNeedName() {
-        return needName;
-    }
-
-    public void setNeedName(String needName) {
-        this.needName = needName;
-    }
-
-    public String getOrgName() {
-        return orgName;
-    }
-
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
-    }
 }

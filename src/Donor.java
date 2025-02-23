@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * This class defines the people making donations in the program
  * it inherits frm the User class
  * The donor has additional attributes such as a list of all donation history
- * they also have individual inboxes which is a collection of chats they have had with dobnors
+ * they also have individual inboxes which is a collection of chats they have had with donors
  * actions by the donor include viewing all the organisations and their needs
  * they can choose to have them sorted by region or category of needs
  * Once a user chooses the organisation and the item they wish to donate(by clicking on the donate button in the GUI
@@ -25,6 +25,31 @@ public class Donor extends User{
 
 
     //methods
+    public static Donor getDonor(String email){
+        Donor current=null;
+        //querry the database
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con=DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myProjectDb1","root","wanyika_1234?");
+//here sonoo is database name, root is username and password
+            String querry="select * from Users where email=?";
+            PreparedStatement stmt=con.prepareStatement(querry);
+
+
+            stmt.setString(2, email);
+
+
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next()) {
+                current=new Donor(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),
+                        rs.getString(5),rs.getString(6),rs.getString(7));
+            }
+            con.close();
+        }catch(Exception e){ System.out.println("Donor not found");}
+        return current;}
+
+
 
     //donate
     public String donate(Organisation org,Need need){
@@ -58,15 +83,7 @@ public class Donor extends User{
         //method to allow messaging with selected organisation
         return "Thanks for donating";
     }
-    public static void main(String[]args){
-        Organisation org=new Organisation(123456,"char1","pass","Organisation","Ghana","char1@email","char org","423514");
-        Need need=new Need("Foodstuff","I need tea");
-        Donor donor=new Donor(99999,"Cindy","w","pass2","Donor","Kenya","c@email");
-        System.out.println(donor.donate(org,need));
-        for(Need ned:donor.findNeeds("Foodstuff")){
-            System.out.println(ned.getDescription());
-        };
-    }
+
 
     public static ArrayList<Need> findNeeds(String categFilter){
         ArrayList<Need> needs=new ArrayList<>();
@@ -89,5 +106,28 @@ public class Donor extends User{
             con.close();
         }catch(Exception e){ System.out.println("User not found");}
         return needs;
+    }
+    public ArrayList<Donation> getDonations(){
+        ArrayList<Donation> donations=null;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con=DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myProjectDb1","root","wanyika_1234?");
+
+            String querry="select * from AllDonations where emailAddress=? ";
+            PreparedStatement stmt=con.prepareStatement(querry);
+
+            stmt.setString(1, this.getEmailAddress());
+
+
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next()) {
+                Donation donation=new Donation(Need.getNeed(rs.getInt(8)),this,Organisation.getOrg(rs.getString(4)));
+                donations.add(donation);
+            }
+            con.close();
+        }catch(Exception e){ System.out.println("User not found");}
+
+        return donations;
     }
 }

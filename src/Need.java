@@ -71,6 +71,28 @@ public class Need {
                 "\nDescription: "+this.description+
                 "\nContact Information: "+this.contactInfo;
     }
+    public static Need getNeed(int Id){
+        Need current=null;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con=DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myProjectDb1","root","wanyika_1234?");
+
+            String querry="select * from Needs where id=?";
+            PreparedStatement stmt=con.prepareStatement(querry);
+
+            stmt.setInt(1, Id);
+
+
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next()) {
+                current=new Need(rs.getString(1),rs.getString(2));
+            }
+            con.close();
+        }catch(Exception e){ System.out.println("User not found");}
+        return current;}
+
+
     public static void main(String[] args){
         ArrayList<Need> all=Need.getAllNeeds();
 

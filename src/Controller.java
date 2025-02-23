@@ -57,25 +57,39 @@ public class Controller {
 
             String fxmlFile;
             if (role.equals("donor")) {
-                fxmlFile = "donorHomepage.fxml";
+                Donor current=new Donor(user.getId(), user.getFname() , user.getLname(),user.getPword(),user.getAccountType(), user.getAccountType(), user.getEmailAddress());
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("donorHomepage.fxml"));
+                Parent root = loader.load();
+                DonorHomepageController controller = loader.getController();
+                controller.setCurrent(current);
+                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
             } else if (role.equalsIgnoreCase("Organisation")) {
-                fxmlFile = "orgHome.fxml";
+                Organisation current=Organisation.getOrg(user.getEmailAddress());
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("orgHome.fxml"));
+                Parent root = loader.load();
+                OrgHomeController controller = loader.getController();
+                controller.setCurrent(current);
+                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
             } else {
                 feedbackLabel.setText("Unrecognized user role.");
                 return;
             }
 
 
-            switchScene(event, fxmlFile);
+            //switchScene(event, fxmlFile);
         }
     }
 
-    private void switchScene(ActionEvent event, String fxmlFile) throws IOException {
+    /*private void switchScene(ActionEvent event, String fxmlFile) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
-    }
+    }*/
 
 }
 

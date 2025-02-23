@@ -71,15 +71,15 @@ public class Organisation extends User {
             Connection con= DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/myProjectDb1","root","wanyika_1234?");
 
-            String querry="select * from Donations where orgname=? and orgID=?";
+            String querry="select * from AllDonations where OrgEmail?";
             PreparedStatement stmt=con.prepareStatement(querry);
 
-            stmt.setString(1, this.getFname());
-            stmt.setInt(2, this.getId());
+            stmt.setString(1, this.getEmailAddress());
+
 
             ResultSet rs=stmt.executeQuery();
             while(rs.next()) {
-                Donation donation=new Donation(rs.getString(2),rs.getString(4),rs.getString(5));
+                Donation donation=new Donation(Donor.getDonor(rs.getString(2)),this,rs.getString(5),rs.getString(6));
                 allDonations.add(donation);
             }
             con.close();
@@ -103,7 +103,7 @@ public class Organisation extends User {
 
             ResultSet rs=stmt.executeQuery();
             while(rs.next()) {
-                Need need=new Need(rs.getString(3),rs.getString(5));
+                Need need=new Need(this.getId(),this.getFname(),rs.getString(3),rs.getString(4),this.getEmailAddress());
                 allNeeds.add(need);
             }
             con.close();
@@ -156,6 +156,28 @@ public class Organisation extends User {
 
         return organisations;
 
+    }
+    public static Organisation getOrg(String email){
+        Organisation organisation=null;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con= DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/myProjectDb1","root","wanyika_1234?");
+
+            String querry="select * from Organisations where emailAddress=?";
+            PreparedStatement stmt=con.prepareStatement(querry);
+
+            stmt.setString(1, email);
+
+
+            ResultSet rs=stmt.executeQuery();
+            while(rs.next()) {
+                organisation=new Organisation(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6));
+            }
+            con.close();
+        }catch(Exception e){ System.out.println("Organisation not found");}
+
+        return organisation;
     }
     @Override
     public String toString(){

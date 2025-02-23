@@ -22,7 +22,7 @@
             <Font name="Brush Script MT Italic" size="21.0" />
          </font>
       </Text>
-      <Button fx:id="findOrgButton" layoutX="117.0" layoutY="134.0" mnemonicParsing="false" onAction="#setFindOrgButton" prefHeight="101.0" prefWidth="145.0" style="-fx-background-color: white;" text="ORGANISATIONS">
+      <Button fx:id="findOrgButton" layoutX="200.0" layoutY="134.0" mnemonicParsing="false" onAction="#setFindOrgButton" prefHeight="101.0" prefWidth="145.0" style="-fx-background-color: white;" text="ORGANISATIONS">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -33,7 +33,7 @@
                </color>
             </InnerShadow>
          </effect></Button>
-      <Button fx:id="viewDonations" layoutX="307.0" layoutY="134.0" lineSpacing="5.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="145.0" style="-fx-background-color: white;" text="MY DONATIONS" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="viewDonations" layoutX="393.0" layoutY="134.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#setViewDonations" prefHeight="101.0" prefWidth="145.0" style="-fx-background-color: white;" text="MY DONATIONS" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -73,5 +73,6 @@
             </Text>
          </children>
       </AnchorPane>
+      <Button fx:id="viewNeeds" layoutX="54.0" layoutY="134.0" minWidth="53.0" mnemonicParsing="false" onAction="#setViewNeeds" prefHeight="101.0" prefWidth="120.0" text="needs" />
    </children>
 </AnchorPane>
