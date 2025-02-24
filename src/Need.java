@@ -100,4 +100,8 @@ public class Need {
             System.out.println(need.toString()+"\n");
         }
     }
+    public Organisation getNeedOrg(){
+        Organisation curr=Organisation.getOrg(this.contactInfo);
+        return curr;
+    }
 }

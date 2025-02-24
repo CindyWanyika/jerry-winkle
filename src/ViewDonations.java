@@ -19,8 +19,12 @@ import java.util.ResourceBundle;
 public class ViewDonations implements Initializable {
     private Donor current;
 
+
     @FXML
     private Label nameLabel;
+
+    @FXML
+    private Label feedbackLabel;
 
     @FXML
     private Button backbutton;
@@ -28,18 +32,19 @@ public class ViewDonations implements Initializable {
     @FXML
     private ListView<String> listView;
 
-    ArrayList<Donation> allDonations=current.getDonations();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        for(Donation donation:allDonations){
-            listView.getItems().add(donation.toString());
-        }
+
 
     }
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
-        Parent signupparent = FXMLLoader.load(getClass().getResource("DonorHomepage.fxml"));
-        Scene signUpScene = new Scene(signupparent);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DonorHomepage.fxml"));
+        Parent root = loader.load();
+        DonorHomepageController controller = loader.getController();
+        controller.setCurrent(current);
+        Scene signUpScene = new Scene(root);
 
         // Get stage info
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -47,7 +52,17 @@ public class ViewDonations implements Initializable {
         window.setScene(signUpScene);
         window.show();
     }
-    public void setCurrent(Donor donor){
-        this.current=donor;
+    public void setCurrent(Donor current){
+        this.current=current;
+        ArrayList<Donation> allDonations=current.getDonations();
+        if (allDonations.isEmpty()){
+            feedbackLabel.setText("You have not made any donations yet");
+
+        }
+        else{
+            for(Donation donation:allDonations){
+                listView.getItems().add(donation.toString());
+            }
+        }
     }
 }

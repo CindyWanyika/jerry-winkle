@@ -71,7 +71,7 @@ public class Organisation extends User {
             Connection con= DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/myProjectDb1","root","wanyika_1234?");
 
-            String querry="select * from AllDonations where OrgEmail?";
+            String querry="select * from AllDonations where OrgEmail=?";
             PreparedStatement stmt=con.prepareStatement(querry);
 
             stmt.setString(1, this.getEmailAddress());

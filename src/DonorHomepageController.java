@@ -38,8 +38,11 @@ public class DonorHomepageController {
 
     @FXML
     public void setFindOrgButton(ActionEvent event)throws IOException {
-        Parent signupparent = FXMLLoader.load(getClass().getResource("Browseorganisations.fxml"));
-        Scene signUpScene = new Scene(signupparent);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Browseorganisations.fxml"));
+        Parent root = loader.load();
+        BrowseNeeds controller = loader.getController();
+        controller.setCurrent(this.current);
+        Scene signUpScene = new Scene(root);
 
         // Get stage info
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -50,8 +53,11 @@ public class DonorHomepageController {
 
     @FXML
     public void setViewNeeds(ActionEvent event)throws IOException {
-        Parent signupparent = FXMLLoader.load(getClass().getResource("browseNeeds.fxml"));
-        Scene signUpScene = new Scene(signupparent);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("browseNeeds.fxml"));
+        Parent root = loader.load();
+        BrowseNeeds controller = loader.getController();
+        controller.setCurrent(this.current);
+        Scene signUpScene = new Scene(root);
 
         // Get stage info
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -61,12 +67,12 @@ public class DonorHomepageController {
     }
 
     public void setCurrent(Donor donor){
-        this.current=current;
+        this.current=donor;
     }
 
     @FXML
     public void setViewDonations(ActionEvent event)throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewDonations.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("viewDonations.fxml"));
         Parent root = loader.load();
         ViewDonations controller = loader.getController();
         controller.setCurrent(current);

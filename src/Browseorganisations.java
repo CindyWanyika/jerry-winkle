@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Browseorganisations implements Initializable {
+    private Donor current;
 
     @FXML
     private Button backButton;
@@ -31,13 +32,20 @@ public class Browseorganisations implements Initializable {
     }
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
-        Parent signupparent = FXMLLoader.load(getClass().getResource("DonorHomepage.fxml"));
-        Scene signUpScene = new Scene(signupparent);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DonorHomepage.fxml"));
+        Parent root = loader.load();
+        DonorHomepageController controller = loader.getController();
+        controller.setCurrent(current);
+        Scene signUpScene = new Scene(root);
 
         // Get stage info
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         window.setScene(signUpScene);
         window.show();
+    }
+
+    public void setCurrent(Donor current){
+        this.current=current;
     }
 }

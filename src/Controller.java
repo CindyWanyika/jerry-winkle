@@ -58,7 +58,7 @@ public class Controller {
             String fxmlFile;
             if (role.equals("donor")) {
                 Donor current=new Donor(user.getId(), user.getFname() , user.getLname(),user.getPword(),user.getAccountType(), user.getAccountType(), user.getEmailAddress());
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("donorHomepage.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("DonorHomepage.fxml"));
                 Parent root = loader.load();
                 DonorHomepageController controller = loader.getController();
                 controller.setCurrent(current);

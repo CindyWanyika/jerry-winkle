@@ -60,17 +60,18 @@ public class Donor extends User{
         String user = "root";
         String password = "wanyika_1234?";
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String query = "INSERT INTO Donations VALUES (?, ?, ?,?,?,?)";
+        String query = "INSERT INTO AllDonations VALUES (?, ?, ?,?,?,?,?)";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, this.getId());
-            stmt.setString(2, this.getFname());
-            stmt.setInt(3, org.getId());
-            stmt.setString(4, org.getFname());
+            stmt.setString(1, this.getFname());
+            stmt.setString(2, this.getEmailAddress());
+            stmt.setString(3, org.getFname());
+            stmt.setString(4, org.getEmailAddress());
             stmt.setString(5, need.getDescription());
-            stmt.setDate(6, Date.valueOf(LocalDate.now().format(df)));
+            stmt.setString(6, need.getCategory());
+            stmt.setDate(7, Date.valueOf(LocalDate.now().format(df)));
 
 
             int rowsInserted = stmt.executeUpdate();
@@ -100,7 +101,7 @@ public class Donor extends User{
 
             ResultSet rs=stmt.executeQuery();
             while(rs.next()) {
-                Need need=new Need(categFilter,rs.getString(4));
+                Need need=new Need(rs.getInt(1),rs.getString(2),categFilter,rs.getString(4),rs.getString(5));
                 needs.add(need);
             }
             con.close();
@@ -108,13 +109,13 @@ public class Donor extends User{
         return needs;
     }
     public ArrayList<Donation> getDonations(){
-        ArrayList<Donation> donations=null;
+        ArrayList<Donation> donations=new ArrayList<>();
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection con=DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/myProjectDb1","root","wanyika_1234?");
 
-            String querry="select * from AllDonations where emailAddress=? ";
+            String querry="select * from AllDonations where DonorEmail=? ";
             PreparedStatement stmt=con.prepareStatement(querry);
 
             stmt.setString(1, this.getEmailAddress());
@@ -122,11 +123,13 @@ public class Donor extends User{
 
             ResultSet rs=stmt.executeQuery();
             while(rs.next()) {
-                Donation donation=new Donation(Need.getNeed(rs.getInt(8)),this,Organisation.getOrg(rs.getString(4)));
+                Organisation org=Organisation.getOrg(rs.getString(4));
+                Need need=new Need(org.getId(), org.getFname(),rs.getString(6),rs.getString(5),org.getEmailAddress());
+                Donation donation=new Donation(this,org,rs.getString(5),rs.getString(6));
                 donations.add(donation);
             }
             con.close();
-        }catch(Exception e){ System.out.println("User not found");}
+        }catch(Exception e){ System.out.println("User Donations not found");}
 
         return donations;
     }
